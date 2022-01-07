@@ -4,11 +4,26 @@ public class Radio {
 
     private int currentRadioStation;
     private int radioVolume;
+    private int stationsTotal;
 
-    //тут станция
+//конструкторы
+
+    public Radio() {
+
+    }
+
+    public Radio(int stationsTotal) {
+        this.stationsTotal = stationsTotal;
+    }
+
+//тут станции
 
     public int setCurrentRadioStation() {
         return currentRadioStation;
+    }
+
+    public int setTotalStations() {
+        return stationsTotal;
     }
 
     public void getRadioStation(int currentRadioStation) {
@@ -63,8 +78,8 @@ public class Radio {
             radioVolume = 0;
         }
 
-        if (radioVolume > 10) {
-            radioVolume = 10;
+        if (radioVolume > 100) {
+            radioVolume = 100;
         }
 
         this.radioVolume = radioVolume;
@@ -73,8 +88,8 @@ public class Radio {
     public void increaseVolume() {
 
         radioVolume = radioVolume + 1;
-        if (radioVolume >= 10) {
-            radioVolume = 10;
+        if (radioVolume >= 100) {
+            radioVolume = 100;
         }
 
 
