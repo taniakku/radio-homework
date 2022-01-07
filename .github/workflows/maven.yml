@@ -1,6 +1,6 @@
 name: Java CI # как называется Workflow
 
-on: [push] # когда срабатывает (на push)
+on: [pull_request]
 
 jobs: # какие задачи делаем
   build: # сборка
