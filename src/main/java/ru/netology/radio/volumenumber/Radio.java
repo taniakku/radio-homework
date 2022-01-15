@@ -4,7 +4,6 @@ public class Radio {
 
     private int currentRadioStation;
     private int radioVolume;
-    private int stationsTotal;
 
 //конструкторы
 
@@ -12,8 +11,8 @@ public class Radio {
 
     }
 
-    public Radio(int stationsTotal) {
-        this.stationsTotal = stationsTotal;
+    public Radio(int currentRadioStation) {
+        this.currentRadioStation = currentRadioStation;
     }
 
 //тут станции
@@ -22,30 +21,13 @@ public class Radio {
         return currentRadioStation;
     }
 
-    public int setTotalStations() {
-        return stationsTotal;
-    }
-
-    public void getRadioStation(int currentRadioStation) {
-
-        if (currentRadioStation < 0) {
-            currentRadioStation = 9;
-        }
-
-        if (currentRadioStation > 9) {
-            currentRadioStation = 0;
-        }
-
-        this.currentRadioStation = currentRadioStation;
-    }
-
     public void switchRadioStation() {
 
 
-            currentRadioStation = currentRadioStation + 1;
-            if (currentRadioStation >= 10) {
-                currentRadioStation = 0;
-            }
+        currentRadioStation = currentRadioStation + 1;
+        if (currentRadioStation > 9) {
+            currentRadioStation = 0;
+        }
 
 
         this.currentRadioStation = currentRadioStation;
@@ -55,11 +37,10 @@ public class Radio {
     public void switchBackRadioStation() {
 
 
-            currentRadioStation = currentRadioStation - 1;
-            if (currentRadioStation < 0) {
-                currentRadioStation = 9;
-            }
-
+        currentRadioStation = currentRadioStation - 1;
+        if (currentRadioStation < 0) {
+            currentRadioStation = 9;
+        }
 
         this.currentRadioStation = currentRadioStation;
 
@@ -106,8 +87,6 @@ public class Radio {
 
         this.radioVolume = radioVolume;
     }
-
-
 
 
 }
