@@ -5,76 +5,172 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
-    Radio radio = new Radio();
 
 
     @Test
-    public void setCurrentRadioStation() {
-        Radio radio = new Radio(9);
+    public void showCurrentRadioStation() {
+        Radio radio = new Radio();
 
+        radio.setCurrentRadioStation(0);
 
-        assertEquals(9, radio.setCurrentRadioStation());
+        assertEquals(0, radio.getCurrentRadioStation());
 
     }
 
 
     @Test
     public void switchRadioStation() {
-        Radio radio = new Radio(10);
+        Radio radio = new Radio();
 
-        radio.setCurrentRadioStation();
+        radio.setCurrentRadioStation(5);
 
         radio.switchRadioStation();
 
-        assertEquals(0, radio.setCurrentRadioStation());
+        assertEquals(6, radio.getCurrentRadioStation());
 
     }
 
     @Test
-    public void switchRadioStationMid() {
+    public void switchRadioStationOtherNumberOfStations() {
         Radio radio = new Radio(5);
 
-        radio.setCurrentRadioStation();
+        radio.setCurrentRadioStation(0);
 
         radio.switchRadioStation();
 
-        assertEquals(6, radio.setCurrentRadioStation());
+        assertEquals(1, radio.getCurrentRadioStation());
 
     }
 
     @Test
     public void switchRadioStationOverLimit() {
-        Radio radio = new Radio(11);
+        Radio radio = new Radio();
 
-        radio.setCurrentRadioStation();
+        radio.setCurrentRadioStation(11);
 
         radio.switchRadioStation();
 
-        assertEquals(0, radio.setCurrentRadioStation());
+        assertEquals(0, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchRadioStationOnTheLimit() {
+        Radio radio = new Radio();
+
+        radio.setCurrentRadioStation(9);
+
+        radio.switchRadioStation();
+
+        assertEquals(0, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchRadioStationOtherNumberOfStationsOverLimit() {
+        Radio radio = new Radio(5);
+
+        radio.setCurrentRadioStation(6);
+
+        radio.switchRadioStation();
+
+        assertEquals(0, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchRadioStationOtherNumberOfStationsOnTheLimit() {
+        Radio radio = new Radio(5);
+
+        radio.setCurrentRadioStation(4);
+
+        radio.switchRadioStation();
+
+        assertEquals(0, radio.getCurrentRadioStation());
 
     }
 
     @Test
     public void switchBackRadioStation() {
-        Radio radio = new Radio(9);
+        Radio radio = new Radio();
 
-        radio.setCurrentRadioStation();
+        radio.setCurrentRadioStation(8);
 
         radio.switchBackRadioStation();
 
-        assertEquals(8, radio.setCurrentRadioStation());
+        assertEquals(7, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchBackRadioStationOverLimit() {
+        Radio radio = new Radio();
+
+        radio.setCurrentRadioStation(10);
+
+        radio.switchBackRadioStation();
+
+        assertEquals(8, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchBackRadioStationZero() {
+        Radio radio = new Radio();
+
+        radio.setCurrentRadioStation(0);
+
+        radio.switchBackRadioStation();
+
+        assertEquals(9, radio.getCurrentRadioStation());
 
     }
 
     @Test
     public void switchBackRadioStationUnderLimit() {
-        Radio radio = new Radio(-1);
+        Radio radio = new Radio();
 
-        radio.setCurrentRadioStation();
+        radio.setCurrentRadioStation(-1);
 
         radio.switchBackRadioStation();
 
-        assertEquals(9, radio.setCurrentRadioStation());
+        assertEquals(9, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchBackRadioStationOtherNumberOfStations() {
+        Radio radio = new Radio(5);
+
+        radio.setCurrentRadioStation(4);
+
+        radio.switchBackRadioStation();
+
+        assertEquals(3, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchBackRadioStationOtherNumberOfStationsOverLimit() {
+        Radio radio = new Radio(5);
+
+        radio.setCurrentRadioStation(6);
+
+        radio.switchBackRadioStation();
+
+        assertEquals(3, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchBackRadioStationOtherNumberOfStationsMinusLimit() {
+        Radio radio = new Radio(5);
+
+        radio.setCurrentRadioStation(-1);
+
+        radio.switchBackRadioStation();
+
+        assertEquals(4, radio.getCurrentRadioStation());
 
     }
 
@@ -82,6 +178,7 @@ class RadioTest {
 
     @Test
     public void setCurrentVolume() {
+        Radio radio = new Radio();
 
         assertEquals(0, radio.setCurrentVolume());
 
@@ -89,6 +186,7 @@ class RadioTest {
 
     @Test
     public void getCurrentVolumeZero() {
+        Radio radio = new Radio();
 
         radio.getCurrentVolume(-1);
 
@@ -98,6 +196,7 @@ class RadioTest {
 
     @Test
     public void shouldIncreaseVolume() {
+        Radio radio = new Radio();
 
         radio.getCurrentVolume(0);
 
@@ -109,6 +208,7 @@ class RadioTest {
 
     @Test
     public void shouldIncreaseVolumeOverLimit() {
+        Radio radio = new Radio();
 
         radio.getCurrentVolume(100);
 
@@ -120,6 +220,7 @@ class RadioTest {
 
     @Test
     public void shouldIncreaseVolumeMid() {
+        Radio radio = new Radio();
 
         radio.getCurrentVolume(5);
 
@@ -131,6 +232,7 @@ class RadioTest {
 
     @Test
     public void shouldDecreaseVolume() {
+        Radio radio = new Radio();
 
         radio.getCurrentVolume(0);
 
@@ -142,6 +244,7 @@ class RadioTest {
 
     @Test
     public void shouldDecreaseVolumeMax() {
+        Radio radio = new Radio();
 
         radio.getCurrentVolume(100);
 
@@ -153,6 +256,7 @@ class RadioTest {
 
     @Test
     public void shouldDecreaseVolumeOverMax() {
+        Radio radio = new Radio();
 
         radio.getCurrentVolume(101); //проверяем, что 101 будет для него 100
 
@@ -164,6 +268,7 @@ class RadioTest {
 
     @Test
     public void shouldDecreaseVolumeUnderLimit() {
+        Radio radio = new Radio();
 
         radio.getCurrentVolume(-1); //проверяем, что -1 будет для него 0
 
