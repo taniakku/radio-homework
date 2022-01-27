@@ -55,6 +55,18 @@ class RadioTest {
     }
 
     @Test
+    public void switchRadioStationOverLimitTwice() {
+        Radio radio = new Radio();
+
+        radio.setCurrentRadioStation(22);
+
+        radio.switchRadioStation();
+
+        assertEquals(0, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
     public void switchRadioStationOnTheLimit() {
         Radio radio = new Radio();
 
@@ -70,7 +82,7 @@ class RadioTest {
     public void switchRadioStationOtherNumberOfStationsOverLimit() {
         Radio radio = new Radio(5);
 
-        radio.setCurrentRadioStation(6);
+        radio.setCurrentRadioStation(4);
 
         radio.switchRadioStation();
 
@@ -82,7 +94,7 @@ class RadioTest {
     public void switchRadioStationOtherNumberOfStationsOnTheLimit() {
         Radio radio = new Radio(5);
 
-        radio.setCurrentRadioStation(4);
+        radio.setCurrentRadioStation(5);
 
         radio.switchRadioStation();
 
@@ -130,11 +142,11 @@ class RadioTest {
     public void switchBackRadioStationUnderLimit() {
         Radio radio = new Radio();
 
-        radio.setCurrentRadioStation(-1);
+        radio.setCurrentRadioStation(-1); //для метода это уже 9
 
         radio.switchBackRadioStation();
 
-        assertEquals(9, radio.getCurrentRadioStation());
+        assertEquals(8, radio.getCurrentRadioStation());
 
     }
 
@@ -166,11 +178,11 @@ class RadioTest {
     public void switchBackRadioStationOtherNumberOfStationsMinusLimit() {
         Radio radio = new Radio(5);
 
-        radio.setCurrentRadioStation(-1);
+        radio.setCurrentRadioStation(-1); // для метода это уже 4
 
         radio.switchBackRadioStation();
 
-        assertEquals(4, radio.getCurrentRadioStation());
+        assertEquals(3, radio.getCurrentRadioStation());
 
     }
 

@@ -23,26 +23,18 @@ public class Radio {
 
     public void setCurrentRadioStation(int currentRadioStation) {
 
-/*        if (currentRadioStation < 0) {
+        if (currentRadioStation < 0) {
             currentRadioStation = numberOfStations - 1;
         }
 
-        if (currentRadioStation > numberOfStations) {
-            currentRadioStation = 0;
-        }*/
+        if (currentRadioStation >= numberOfStations) {
+            currentRadioStation = numberOfStations - 1;
+        }
 
         this.currentRadioStation = currentRadioStation;
 
     }
 
-
-    public int getNumberOfStations() {
-        return numberOfStations;
-    }
-
-    public int setNumberOfStations() {
-        return numberOfStations;
-    }
 
     public void switchRadioStation() {
 
@@ -58,12 +50,10 @@ public class Radio {
 
     public void switchBackRadioStation() {
 
-        if (currentRadioStation >= numberOfStations) {
-            currentRadioStation = numberOfStations - 2;
-        } else currentRadioStation = currentRadioStation - 1;
         if (currentRadioStation <= 0) {
-            currentRadioStation = numberOfStations - 1;
+            currentRadioStation = numberOfStations;
         }
+        currentRadioStation = currentRadioStation - 1;
 
         this.currentRadioStation = currentRadioStation;
 
