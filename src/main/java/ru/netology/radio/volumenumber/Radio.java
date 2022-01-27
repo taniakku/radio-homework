@@ -4,33 +4,44 @@ public class Radio {
 
     private int currentRadioStation;
     private int radioVolume;
+    private int numberOfStations = 10;
 
-    //тут станция
+//конструкторы
 
-    public int setCurrentRadioStation() {
+    public Radio() {
+    }
+
+    public Radio(int numberOfStations) {
+        this.numberOfStations = numberOfStations;
+    }
+
+//тут станции
+
+    public int getCurrentRadioStation() {
         return currentRadioStation;
     }
 
-    public void getRadioStation(int currentRadioStation) {
+    public void setCurrentRadioStation(int currentRadioStation) {
 
         if (currentRadioStation < 0) {
-            currentRadioStation = 9;
+            currentRadioStation = numberOfStations - 1;
         }
 
-        if (currentRadioStation > 9) {
-            currentRadioStation = 0;
+        if (currentRadioStation >= numberOfStations) {
+            currentRadioStation = numberOfStations - 1;
         }
 
         this.currentRadioStation = currentRadioStation;
+
     }
+
 
     public void switchRadioStation() {
 
-
-            currentRadioStation = currentRadioStation + 1;
-            if (currentRadioStation >= 10) {
-                currentRadioStation = 0;
-            }
+        currentRadioStation = currentRadioStation + 1;
+        if (currentRadioStation >= numberOfStations) {
+            currentRadioStation = 0;
+        }
 
 
         this.currentRadioStation = currentRadioStation;
@@ -39,12 +50,10 @@ public class Radio {
 
     public void switchBackRadioStation() {
 
-
-            currentRadioStation = currentRadioStation - 1;
-            if (currentRadioStation < 0) {
-                currentRadioStation = 9;
-            }
-
+        if (currentRadioStation <= 0) {
+            currentRadioStation = numberOfStations;
+        }
+        currentRadioStation = currentRadioStation - 1;
 
         this.currentRadioStation = currentRadioStation;
 
@@ -63,8 +72,8 @@ public class Radio {
             radioVolume = 0;
         }
 
-        if (radioVolume > 10) {
-            radioVolume = 10;
+        if (radioVolume > 100) {
+            radioVolume = 100;
         }
 
         this.radioVolume = radioVolume;
@@ -73,8 +82,8 @@ public class Radio {
     public void increaseVolume() {
 
         radioVolume = radioVolume + 1;
-        if (radioVolume >= 10) {
-            radioVolume = 10;
+        if (radioVolume >= 100) {
+            radioVolume = 100;
         }
 
 
@@ -91,8 +100,6 @@ public class Radio {
 
         this.radioVolume = radioVolume;
     }
-
-
 
 
 }

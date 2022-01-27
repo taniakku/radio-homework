@@ -6,133 +6,99 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
 
+
     @Test
-    public void setCurrentRadioStation() {
+    public void showCurrentRadioStation() {
         Radio radio = new Radio();
 
-        int expected = 0;
-        int actual = radio.setCurrentRadioStation();
+        radio.setCurrentRadioStation(0);
 
-        assertEquals(expected, actual);
+        assertEquals(0, radio.getCurrentRadioStation());
 
     }
 
 
     @Test
-    public void getRadioStation() {
+    public void switchRadioStation() {
         Radio radio = new Radio();
 
-        radio.getRadioStation(10);
-
-        int expected = 0;
-        int actual = radio.setCurrentRadioStation();
-
-        assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void getRadioStationZero() {
-        Radio radio = new Radio();
-
-        radio.getRadioStation(-1);
-
-        int expected = 9;
-        int actual = radio.setCurrentRadioStation();
-
-        assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void switchRadioStationMax() {
-        Radio radio = new Radio();
-
-        radio.getRadioStation(9);
+        radio.setCurrentRadioStation(5);
 
         radio.switchRadioStation();
 
-        int expected = 0;
-        int actual = radio.setCurrentRadioStation();
-
-        assertEquals(expected, actual);
+        assertEquals(6, radio.getCurrentRadioStation());
 
     }
 
     @Test
-    public void switchRadioStationStart() {
-        Radio radio = new Radio();
+    public void switchRadioStationOtherNumberOfStations() {
+        Radio radio = new Radio(5);
 
-        radio.getRadioStation(1);
-
-        radio.switchRadioStation();
-
-        int expected = 2;
-        int actual = radio.setCurrentRadioStation();
-
-        assertEquals(expected, actual);
-
-    }
-
-
-
-    @Test
-    public void switchRadioStationStartZero() {
-        Radio radio = new Radio();
-
-        radio.getRadioStation(0);
+        radio.setCurrentRadioStation(0);
 
         radio.switchRadioStation();
 
-        int expected = 1;
-        int actual = radio.setCurrentRadioStation();
-
-        assertEquals(expected, actual);
+        assertEquals(1, radio.getCurrentRadioStation());
 
     }
 
     @Test
-    public void switchRadioStationMid() {
+    public void switchRadioStationOverLimit() {
         Radio radio = new Radio();
 
-        radio.getRadioStation(5);
+        radio.setCurrentRadioStation(11);
 
         radio.switchRadioStation();
 
-        int expected = 6;
-        int actual = radio.setCurrentRadioStation();
-
-        assertEquals(expected, actual);
+        assertEquals(0, radio.getCurrentRadioStation());
 
     }
 
     @Test
-    public void switchRadioStationBond() {
+    public void switchRadioStationOverLimitTwice() {
         Radio radio = new Radio();
 
-        radio.getRadioStation(8);
+        radio.setCurrentRadioStation(22);
 
         radio.switchRadioStation();
 
-        int expected = 9;
-        int actual = radio.setCurrentRadioStation();
-
-        assertEquals(expected, actual);
+        assertEquals(0, radio.getCurrentRadioStation());
 
     }
 
     @Test
-    public void switchRadioStationOverMax() {
+    public void switchRadioStationOnTheLimit() {
         Radio radio = new Radio();
 
-        radio.getRadioStation(10);
+        radio.setCurrentRadioStation(9);
 
         radio.switchRadioStation();
 
-        int expected = 1;
-        int actual = radio.setCurrentRadioStation();
+        assertEquals(0, radio.getCurrentRadioStation());
 
-        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void switchRadioStationOtherNumberOfStationsOverLimit() {
+        Radio radio = new Radio(5);
+
+        radio.setCurrentRadioStation(4);
+
+        radio.switchRadioStation();
+
+        assertEquals(0, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchRadioStationOtherNumberOfStationsOnTheLimit() {
+        Radio radio = new Radio(5);
+
+        radio.setCurrentRadioStation(5);
+
+        radio.switchRadioStation();
+
+        assertEquals(0, radio.getCurrentRadioStation());
 
     }
 
@@ -140,29 +106,11 @@ class RadioTest {
     public void switchBackRadioStation() {
         Radio radio = new Radio();
 
-        radio.getRadioStation(0);
+        radio.setCurrentRadioStation(8);
 
         radio.switchBackRadioStation();
 
-        int expected = 9;
-        int actual = radio.setCurrentRadioStation();
-
-        assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void switchBackRadioStationZero() {
-        Radio radio = new Radio();
-
-        radio.getRadioStation(1);
-
-        radio.switchBackRadioStation();
-
-        int expected = 0;
-        int actual = radio.setCurrentRadioStation();
-
-        assertEquals(expected, actual);
+        assertEquals(7, radio.getCurrentRadioStation());
 
     }
 
@@ -170,18 +118,73 @@ class RadioTest {
     public void switchBackRadioStationOverLimit() {
         Radio radio = new Radio();
 
-        radio.getRadioStation(10);
+        radio.setCurrentRadioStation(10);
 
         radio.switchBackRadioStation();
 
-        int expected = 9;
-        int actual = radio.setCurrentRadioStation();
-
-        assertEquals(expected, actual);
+        assertEquals(8, radio.getCurrentRadioStation());
 
     }
 
+    @Test
+    public void switchBackRadioStationZero() {
+        Radio radio = new Radio();
 
+        radio.setCurrentRadioStation(0);
+
+        radio.switchBackRadioStation();
+
+        assertEquals(9, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchBackRadioStationUnderLimit() {
+        Radio radio = new Radio();
+
+        radio.setCurrentRadioStation(-1); //для метода это уже 9
+
+        radio.switchBackRadioStation();
+
+        assertEquals(8, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchBackRadioStationOtherNumberOfStations() {
+        Radio radio = new Radio(5);
+
+        radio.setCurrentRadioStation(4);
+
+        radio.switchBackRadioStation();
+
+        assertEquals(3, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchBackRadioStationOtherNumberOfStationsOverLimit() {
+        Radio radio = new Radio(5);
+
+        radio.setCurrentRadioStation(6);
+
+        radio.switchBackRadioStation();
+
+        assertEquals(3, radio.getCurrentRadioStation());
+
+    }
+
+    @Test
+    public void switchBackRadioStationOtherNumberOfStationsMinusLimit() {
+        Radio radio = new Radio(5);
+
+        radio.setCurrentRadioStation(-1); // для метода это уже 4
+
+        radio.switchBackRadioStation();
+
+        assertEquals(3, radio.getCurrentRadioStation());
+
+    }
 
     //тесты по громкости
 
@@ -189,23 +192,7 @@ class RadioTest {
     public void setCurrentVolume() {
         Radio radio = new Radio();
 
-        int expected = 0;
-        int actual = radio.setCurrentVolume();
-
-        assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void getCurrentVolumeOverLimit() {
-        Radio radio = new Radio();
-
-        radio.getCurrentVolume(11);
-
-        int expected = 10;
-        int actual = radio.setCurrentVolume();
-
-        assertEquals(expected, actual);
+        assertEquals(0, radio.setCurrentVolume());
 
     }
 
@@ -215,10 +202,7 @@ class RadioTest {
 
         radio.getCurrentVolume(-1);
 
-        int expected = 0;
-        int actual = radio.setCurrentVolume();
-
-        assertEquals(expected, actual);
+        assertEquals(0, radio.setCurrentVolume());
 
     }
 
@@ -230,10 +214,7 @@ class RadioTest {
 
         radio.increaseVolume();
 
-        int expected = 1;
-        int actual = radio.setCurrentVolume();
-
-        assertEquals(expected, actual);
+        assertEquals(1, radio.setCurrentVolume());
 
     }
 
@@ -241,14 +222,11 @@ class RadioTest {
     public void shouldIncreaseVolumeOverLimit() {
         Radio radio = new Radio();
 
-        radio.getCurrentVolume(10);
+        radio.getCurrentVolume(100);
 
         radio.increaseVolume();
 
-        int expected = 10;
-        int actual = radio.setCurrentVolume();
-
-        assertEquals(expected, actual);
+        assertEquals(100, radio.setCurrentVolume());
 
     }
 
@@ -260,10 +238,7 @@ class RadioTest {
 
         radio.increaseVolume();
 
-        int expected = 6;
-        int actual = radio.setCurrentVolume();
-
-        assertEquals(expected, actual);
+        assertEquals(6, radio.setCurrentVolume());
 
     }
 
@@ -275,10 +250,7 @@ class RadioTest {
 
         radio.decreaseVolume();
 
-        int expected = 0;
-        int actual = radio.setCurrentVolume();
-
-        assertEquals(expected, actual);
+        assertEquals(0, radio.setCurrentVolume());
 
     }
 
@@ -286,14 +258,11 @@ class RadioTest {
     public void shouldDecreaseVolumeMax() {
         Radio radio = new Radio();
 
-        radio.getCurrentVolume(10);
+        radio.getCurrentVolume(100);
 
         radio.decreaseVolume();
 
-        int expected = 9;
-        int actual = radio.setCurrentVolume();
-
-        assertEquals(expected, actual);
+        assertEquals(99, radio.setCurrentVolume());
 
     }
 
@@ -301,14 +270,11 @@ class RadioTest {
     public void shouldDecreaseVolumeOverMax() {
         Radio radio = new Radio();
 
-        radio.getCurrentVolume(11); //проверяем, что 11 будет для него 10
+        radio.getCurrentVolume(101); //проверяем, что 101 будет для него 100
 
         radio.decreaseVolume();
 
-        int expected = 9;
-        int actual = radio.setCurrentVolume();
-
-        assertEquals(expected, actual);
+        assertEquals(99, radio.setCurrentVolume());
 
     }
 
@@ -320,14 +286,9 @@ class RadioTest {
 
         radio.decreaseVolume();
 
-        int expected = 0;
-        int actual = radio.setCurrentVolume();
-
-        assertEquals(expected, actual);
+        assertEquals(0, radio.setCurrentVolume());
 
     }
-
-
 
 
 }
